@@ -72,7 +72,7 @@ start-lvmd:
 	go build -o build/lvmd ../pkg/lvmd
 	if [ -f build/backing_store1 ] || [ -f build/backing_store2 ] || [ -f build/backing_store3 ]; then $(MAKE) stop-lvmd; fi
 
-	for i in $$(seq 3); do \
+	for i in $$(seq 2); do \
 		mkdir -p /tmp/topolvm/worker$$i; \
 		mkdir -p /tmp/topolvm/lvmd$$i; \
 		truncate --size=20G build/backing_store$$i; \
@@ -85,7 +85,7 @@ start-lvmd:
 
 stop-lvmd:
 	$(MAKE) shutdown-kind
-	for i in $$(seq 3); do \
+	for i in $$(seq 2); do \
 		if systemctl is-active -q lvmd$$i.service; then $(SUDO) systemctl stop lvmd$$i.service; fi; \
 		if [ -f build/backing_store$$i ]; then \
 			$(SUDO) vgremove -ffy myvg$$i; \
@@ -102,7 +102,7 @@ test: topolvm.img $(SERVER_CERT_FILES)
 	$(MAKE) launch-kind
 	kind load image-archive topolvm.img
 	kustomize build --load_restrictor='none' $(KUSTOMIZE_DIR) | kubectl apply -f -
-	$(SUDO) env \
+#	$(SUDO) env \
 		PATH=$(PATH) \
 		GOPATH=$(GOPATH) \
 		GO111MODULE=on \

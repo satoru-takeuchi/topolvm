@@ -100,38 +100,4 @@ var _ = Describe("TopoLVM", func() {
 	Context("hook", testHook)
 	Context("topolvm-node", testNode)
 	Context("scheduler", testScheduler)
-	Context("metrics", testMetrics)
-	Context("publish", testPublishVolume)
-	Context("e2e", testE2E)
-	Context("cleanup", testCleanup)
-	Context("CSI sanity", func() {
-		It("should add node selector to node DaemonSet for CSI test", func() {
-			_, _, err := kubectl("delete", "nodes", "kind-worker2")
-			Expect(err).ShouldNot(HaveOccurred())
-			Eventually(func() error {
-				var ds appsv1.DaemonSet
-				stdout, _, err := kubectl("get", "-n", "topolvm-system", "ds", "node", "-o", "json")
-				if err != nil {
-					return err
-				}
-				err = json.Unmarshal(stdout, &ds)
-				if err != nil {
-					return err
-				}
-				if ds.Status.NumberAvailable != 1 {
-					return errors.New("node daemonset is not ready")
-				}
-				return nil
-			}).Should(Succeed())
-		})
-
-		sanity.GinkgoTest(&sanity.Config{
-			Address:           "/tmp/topolvm/worker1/plugins/topolvm.cybozu.com/node/csi-topolvm.sock",
-			ControllerAddress: "/tmp/topolvm/worker1/plugins/topolvm.cybozu.com/controller/csi-topolvm.sock",
-			TargetPath:        "/tmp/topolvm/worker1/plugins/topolvm.cybozu.com/node/mountdir",
-			StagingPath:       "/tmp/topolvm/worker1/plugins/topolvm.cybozu.com/node/stagingdir",
-			TestVolumeSize:    1073741824,
-			IDGen:             &sanity.DefaultIDGenerator{},
-		})
-	})
 })
