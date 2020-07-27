@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: topo-pvc
+  name: topo-pvc1
 spec:
   accessModes:
   - ReadWriteOnce
@@ -13,7 +13,7 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx
+  name: nginx-1
 spec:
   containers:
     - name: nginx
@@ -21,7 +21,9 @@ spec:
       volumeMounts:
       - mountPath: "/var/www/html"
         name: vol
+  nodeSelector:
+      kubernetes.io/hostname: kind-worker
   volumes:
     - name: vol
       persistentVolumeClaim:
-        claimName: topo-pvc
+        claimName: topo-pvc1

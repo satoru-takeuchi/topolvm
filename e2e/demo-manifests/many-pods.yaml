@@ -1,0 +1,140 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: topo-pvc3
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: topolvm-provisioner
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-3
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+      - mountPath: "/var/www/html"
+        name: vol
+  volumes:
+    - name: vol
+      persistentVolumeClaim:
+        claimName: topo-pvc3
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: topo-pvc4
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: topolvm-provisioner
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-4
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+      - mountPath: "/var/www/html"
+        name: vol
+  volumes:
+    - name: vol
+      persistentVolumeClaim:
+        claimName: topo-pvc4
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: topo-pvc5
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: topolvm-provisioner
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-5
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+      - mountPath: "/var/www/html"
+        name: vol
+  volumes:
+    - name: vol
+      persistentVolumeClaim:
+        claimName: topo-pvc5
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: topo-pvc6
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: topolvm-provisioner
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-6
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+      - mountPath: "/var/www/html"
+        name: vol
+  volumes:
+    - name: vol
+      persistentVolumeClaim:
+        claimName: topo-pvc6
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: topo-pvc7
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: topolvm-provisioner
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-7
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+      - mountPath: "/var/www/html"
+        name: vol
+  volumes:
+    - name: vol
+      persistentVolumeClaim:
+        claimName: topo-pvc7
+---
